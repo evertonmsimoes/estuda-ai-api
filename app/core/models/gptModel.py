@@ -1,5 +1,5 @@
 from langchain.chat_models import ChatOpenAI
-from config import gptKey
+from app.config import gptKey
 
 class GptConection:
     def __init__(self) -> None:

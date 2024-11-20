@@ -1,7 +1,8 @@
 from fastapi import FastAPI
+from app.api.V1.controllers import routerQuestions
 
 def init_routers(app_: FastAPI) -> None:
-    pass
+    app_.include_router(routerQuestions)
 
 
 def create_app() -> FastAPI:

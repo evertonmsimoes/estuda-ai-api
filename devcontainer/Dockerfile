@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y git && \
     pip install pipx && \
     git clone https://github.com/python-poetry/poetry.git && \
     cd poetry && \
+    git checkout 4ea63a293b0b938e85eabd61f329abc01a89ed9a && \
     pipx install . \
     rm -rf poetry && \
     apt-get clean && \
