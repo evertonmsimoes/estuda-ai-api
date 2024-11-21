@@ -1,5 +1,5 @@
 FROM python:3.12.7
-WORKDIR /
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y git && \
     pip install pipx && \
@@ -21,5 +21,7 @@ COPY .env .
 RUN poetry install --no-interaction --no-ansi
 
 EXPOSE 8000
+
+WORKDIR /app/app
 
 ENTRYPOINT ["poetry", "run", "python", "main.py"]

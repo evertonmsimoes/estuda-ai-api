@@ -7,5 +7,5 @@ service = QuestionsServices()
 
 
 @router.post("/teste")
-def teste(text: str):
+async def teste(text: str):
     return service.generateQuestions(text=text)
