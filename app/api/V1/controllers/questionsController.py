@@ -11,11 +11,11 @@ service = QuestionsServices()
 def teste(request: CreateQuestionsRequest):
     try:
         response = service.generateQuestions(content=request.content, 
-                                     decipline=request.discipline)
+                                     discipline=request.discipline)
 
         return response
     except Exception as E:
-        return HTTPException(
+        raise HTTPException(
             status_code=500,
-            details=f'The following error occurred when generating the questions: {E}'
+            detail=f'The following error occurred when generating the questions: {E}'
         )

@@ -18,7 +18,7 @@ class QuestionsServices:
 
             {content}
 
-            O Título deve ser "Lista de exercícios de ${subject} - ${educationLevel}".
+            O Título deve ser: Lista de exercícios de ${content}.
             A lista deve ser numerada.
 
 '''
