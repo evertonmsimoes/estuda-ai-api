@@ -1,11 +1,13 @@
 from fastapi import APIRouter
 from app.api.V1.service import QuestionsServices
+from ..schemas.requests import CreateQuestionsRequest
 
 router = APIRouter()
 
 service = QuestionsServices()
 
 
-@router.post("/teste")
-async def teste(text: str):
-    return service.generateQuestions(text=text)
+@router.post("/create_questions")
+async def teste(request: CreateQuestionsRequest):
+    return service.generateQuestions(text=request.content)
+

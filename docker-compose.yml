@@ -1,6 +1,6 @@
 services:
   app:
-    image: estudaaibackEnd
+    image: estudaAibackEnd
     build:
       context: .
       dockerfile: ./devcontainer/Dockerfile
