@@ -9,5 +9,5 @@ service = QuestionsServices()
 
 @router.post("/create_questions")
 async def teste(request: CreateQuestionsRequest):
-    return service.generateQuestions(text=request.content)
+    return service.generateQuestions(content=request.content, decipline=request.discipline)
 
