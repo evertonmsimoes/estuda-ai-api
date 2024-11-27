@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.api.V1.service import QuestionsServices
 from ..schemas.requests import CreateQuestionsRequest
 
@@ -8,6 +8,14 @@ service = QuestionsServices()
 
 
 @router.post("/create_questions")
-async def teste(request: CreateQuestionsRequest):
-    return service.generateQuestions(content=request.content, decipline=request.discipline)
+def teste(request: CreateQuestionsRequest):
+    try:
+        response = service.generateQuestions(content=request.content, 
+                                     decipline=request.discipline)
 
+        return response
+    except Exception as E:
+        return HTTPException(
+            status_code=500,
+            details=f'The following error occurred when generating the questions: {E}'
+        )
