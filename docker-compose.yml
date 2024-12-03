@@ -5,8 +5,8 @@ services:
     image: estudaaiapi
     build:
       context: .
-      dockerfile: ./devcontainer/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - "./app:/app/app"  
+      - "./app:/app"  
