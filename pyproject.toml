@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "estuda-ai-api"
+version = "0.1.0"
+description = "This application uses AI to generate custom ENEM (National High School Exam) questions, helping users prepare for the exam with tailored practice. It creates multiple-choice questions based on the exam's content areas and varying difficulty levels."
+authors = ["evertonmsimoes <evertonmsf@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.6"
+langchain-openai = "^0.2.11"
+python-dotenv = "^1.0.1"
+langchain = "^0.3.9"
+uvicorn = "^0.32.1"
+langchain-community = "^0.3.9"
+pydantic = "^2.10.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
