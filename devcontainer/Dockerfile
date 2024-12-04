@@ -10,9 +10,9 @@ ENV PATH="/root/.local/bin:${PATH}"
 RUN poetry config virtualenvs.create false
 
 # Copiar os arquivos necessários
-COPY ./pyproject.toml .
-COPY ./.env.local .
-COPY ./main.py .
+COPY pyproject.toml .
+COPY .env.local .
+COPY main.py .
 COPY ./app .
 
 
@@ -21,6 +21,8 @@ RUN poetry install --no-interaction --no-ansi
 
 # Expor a porta
 EXPOSE 8000
+
+WORKDIR /app
 
 # Comando para rodar o app
 ENTRYPOINT ["poetry", "run", "python", "main.py"]

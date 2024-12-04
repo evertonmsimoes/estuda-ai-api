@@ -6,5 +6,5 @@ class GptConection:
         self.__api_key = gptKey
 
     def getModel(self, model_name: str) -> ChatOpenAI:
-        model = ChatOpenAI(api_key=self.__api_key, model_name=model_name)
+        model = ChatOpenAI(api_key=self.__api_key, model_name=model_name, temperature=0.6)
         return model

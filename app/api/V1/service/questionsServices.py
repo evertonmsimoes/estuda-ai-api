@@ -66,6 +66,7 @@ class QuestionsServices:
                 "O ENEM avalia competências como interpretação, análise crítica e resolução de problemas aplicados ao cotidiano. "
                 "Avalie as respostas fornecidas para as questões sobre o tema: {content}. "
                 "Cada questão possui alternativas e uma resposta correta. O retorno deve fornecer a pontuação total e feedback para cada questão, indicando se a resposta está correta ou não.\n"
+                "Segue as questões feitas pelo aluno e suas respostas: {answers}"
                 "O retorno deve estar no formato JSON com os seguintes campos:\n\n"
                 "{{\n"
                 "  \"titulo\": \"Resultado da avaliação de {content}\",\n"
@@ -97,7 +98,7 @@ class QuestionsServices:
             return json_response
         except json.JSONDecodeError as e:
 
-            raise ValueError(f"Erro ao decodificar JSON: {e}") from e
+            return response
         
     
     def generate_summary(self, content: str, discipline: str, education: str):
