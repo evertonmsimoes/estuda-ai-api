@@ -10,26 +10,16 @@ service = QuestionsServices()
 
 
 @router.post("/create_questions")
-def teste(request: CreateQuestionsRequest):
+def create_questions(request: CreateQuestionsRequest):
     try:
-        response = service.generateQuestions(content=request.content, 
-                                     discipline=request.discipline)
+        response = service.generateQuestions(
+            content=request.content, 
+            discipline=request.discipline,
+            education=request.education
+            )
 
         return response
-    except Exception as E:
-        raise HTTPException(
-            status_code=500,
-            detail=f'The following error occurred when generating the questions: {E}'
-        )
-
-
-@router.post("/generate_summary")
-def teste(request: CreateQuestionsRequest):
-    try:
-        response = service.generateQuestions(content=request.content, 
-                                     discipline=request.discipline)
-
-        return response
+    
     except Exception as E:
         raise HTTPException(
             status_code=500,
@@ -38,7 +28,7 @@ def teste(request: CreateQuestionsRequest):
     
 
 @router.post("/correction")
-def teste(request: CorrectionRequest):
+def correction(request: CorrectionRequest):
     try:
         response = service.generate_results(
             content=request.content,
@@ -47,6 +37,23 @@ def teste(request: CorrectionRequest):
         )
 
         return response
+    except Exception as E:
+        raise HTTPException(
+            status_code=500,
+            detail=f'The following error occurred when generating the questions: {E}'
+        )
+    
+@router.post("/generate_summary")
+def teste(request: CreateQuestionsRequest):
+    try:
+        response = service.generate_summary(
+            content=request.content,
+            discipline=request.discipline,
+            education=request.education
+        )
+
+        return response
+    
     except Exception as E:
         raise HTTPException(
             status_code=500,
