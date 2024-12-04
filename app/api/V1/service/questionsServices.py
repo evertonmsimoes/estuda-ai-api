@@ -11,7 +11,6 @@ class QuestionsServices:
     def generateQuestions(self, discipline: str, content: str):
         llm = self.factory.getGpt4O()
 
-        # Prompt aprimorado
         prompt_teste = PromptTemplate(
             input_variables=['content', 'discipline'],
             template=(
@@ -44,18 +43,57 @@ class QuestionsServices:
             )
         )
 
-        # Configuração da chain
         question = LLMChain(llm=llm, prompt=prompt_teste)
 
-        # Executa o modelo com as variáveis
         response = question.run({'content': content, 'discipline': discipline})
 
-        # Processa a string para JSON
         try:
-            # Remove caracteres extras e converte para JSON
             cleaned_response = response.strip("```json").strip()
             json_response = json.loads(cleaned_response)
             return json_response
         except json.JSONDecodeError as e:
-            # Retorna erro caso a string não seja um JSON válido
+            raise ValueError(f"Erro ao decodificar JSON: {e}") from e
+        
+
+    def generate_results(self, content: str, discipline: str, answers: list):
+        llm = Factory().getGpt4O()
+
+        prompt_teste = PromptTemplate(
+            input_variables=['content', 'discipline', 'answers'],
+            template=(
+                "Você é um professor de {discipline}, especialista em avaliar respostas de questões do ENEM. "
+                "O ENEM avalia competências como interpretação, análise crítica e resolução de problemas aplicados ao cotidiano. "
+                "Avalie as respostas fornecidas para as questões sobre o tema: {content}. "
+                "Cada questão possui alternativas e uma resposta correta. O retorno deve fornecer a pontuação total e feedback para cada questão, indicando se a resposta está correta ou não.\n"
+                "O retorno deve estar no formato JSON com os seguintes campos:\n\n"
+                "{{\n"
+                "  \"titulo\": \"Resultado da avaliação de {content}\",\n"
+                "  \"pontuacao_total\": 10,\n"
+                "  \"feedback\": [\n"
+                "    {{\n"
+                "      \"numero\": 1,\n"
+                "      \"resposta_aluno\": \"A\",\n"
+                "      \"feedback\": \"Resposta correta!\",\n"
+                "      \"pontuacao\": 1\n"
+                "    }},\n"
+                "    ...\n"
+                "  ]\n"
+                "}}"
+            )
+        )
+
+        result = LLMChain(llm=llm, prompt=prompt_teste)
+
+        response = result.run({
+            'content': content,
+            'discipline': discipline,
+            'answers': answers  
+        })
+
+        try:
+            cleaned_response = response.strip("```json").strip()
+            json_response = json.loads(cleaned_response)
+            return json_response
+        except json.JSONDecodeError as e:
+
             raise ValueError(f"Erro ao decodificar JSON: {e}") from e
